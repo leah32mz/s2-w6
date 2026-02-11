@@ -32,6 +32,12 @@ public class MusicPlaylist {
     
     // Double the size of the array when it gets full
     private void resizeArray() {
+        if(count * 0.8 > songs.length){
+            String[] temp = new String[songs.length * 2];
+            for(int x = 0; x < count; x++)
+                temp[x] = songs[x];
+            songs = temp;
+        }
         // TODO: Implement resize
         // 1. Create a new array twice the size of the current one
         // 2. Copy all songs from the old array to the new array
@@ -42,6 +48,14 @@ public class MusicPlaylist {
     // Example: Insert "Bohemian Rhapsody" at position 2
     // Shifts all songs after position 2 to the right
     public void insertSong(int position, String title) {
+        
+        this.resizeArray();
+        }
+        for (int i = count; i > position; i--){
+            songs[i] = songs[i-1];
+        }
+        songs[position] = title;
+        count ++;
         // TODO: Implement insert
         // 1. Check if there's room in the array (if not, call resizeArray())
         // 2. Shift all songs from position to the right
@@ -53,9 +67,10 @@ public class MusicPlaylist {
     // Example: Remove song at position 3
     // Shifts all songs after position 3 to the left
     public void removeSong(int position) {
-        // TODO: Implement remove
-        // 1. Shift all songs after position to the left
-        // 2. Decrement count
+        for (int i = position; i< count -1; i++){
+            songs[i] = songs[i+1];
+        }
+        count --;
     }
     
     // Display all songs
